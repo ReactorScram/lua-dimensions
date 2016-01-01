@@ -85,12 +85,45 @@ function M.mt.__mul (a, b)
 	}, M.mt)
 end
 
+function M.mt.__pow (a, b)
+	a = M.newValue (a)
+	b = M.newValue (b)
+	
+	assert (M.unitEquality ({}, b.units))
+	
+	local newUnits = {}
+	
+	for unit, dimension in pairs (a.units) do
+		local newDimension = dimension * b.value
+		
+		assert (newDimension == math.floor (newDimension), 
+			"Cannot have fractional dimensions")
+		
+		newUnits [unit] = newDimension
+	end
+	
+	return setmetatable ({
+		value = a.value ^ b.value,
+		units = newUnits,
+	}, M.mt)
+end
+
 function M.mt.__div (a, b)
 	a = M.newValue (a)
 	b = M.newValue (b)
 	
 	return setmetatable ({
 		value = a.value / b.value,
+		units = M.unitDivide (a.units, b.units),
+	}, M.mt)
+end
+
+function M.mt.__mod (a, b)
+	a = M.newValue (a)
+	b = M.newValue (b)
+	
+	return setmetatable ({
+		value = a.value % b.value,
 		units = M.unitDivide (a.units, b.units),
 	}, M.mt)
 end
@@ -126,7 +159,7 @@ function M.mt.__tostring (wrapped)
 		  table.concat (posUnits, " * ") .. " / " .. 
 		  table.concat (negUnits, " * ")
 	else
-		return tostring (wrapped.value) ..
+		return tostring (wrapped.value) .. " " .. 
 		  table.concat (posUnits, " * ")
 	end
 end
@@ -149,6 +182,15 @@ function M.newUnit (unit)
 			[unit] = 1,
 		},
 	}, M.mt)
+end
+
+function M.makeUnitsTable (unitsToAdd)
+	local units = {}
+
+	for _, unit in ipairs (unitsToAdd) do
+		units [unit] = M.newUnit (unit)
+	end
+	return units
 end
 
 return M

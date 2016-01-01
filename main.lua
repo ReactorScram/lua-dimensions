@@ -1,6 +1,6 @@
 local UnitWrapper = require "units"
 
-local unitsToAdd = {
+local units = UnitWrapper.makeUnitsTable {
 	"centimeters",
 	"feet",
 	"hours",
@@ -10,11 +10,6 @@ local unitsToAdd = {
 	"minutes",
 	"seconds",
 }
-local units = {}
-
-for _, unit in ipairs (unitsToAdd) do
-	units [unit] = UnitWrapper.newUnit (unit)
-end
 
 print (88 * units.miles / units.hours)
 -- Output:
@@ -36,3 +31,15 @@ print ("Speed of sound", 343 * units.meters / units.seconds
 
 -- Output:
 -- Speed of sound  767.26914817466 miles / hours
+
+print ("Inches per cm", cmPerInch ^ -1)
+
+-- Output:
+-- Inches per cm   0.39370078740157 inches / centimeters
+
+print ("Hypotenuse of right triangle with sides 3 cm and 4 cm",
+	((3 * units.centimeters) ^ 2 +
+	(4 * units.centimeters) ^ 2) ^ 0.5)
+
+-- Output:
+-- Hypotenuse of right triangle with sides 3 cm and 4 cm   5.0 centimeters
