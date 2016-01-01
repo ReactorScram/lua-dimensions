@@ -1,8 +1,20 @@
-local Units = require "units"
+local UnitsRealm = require "units"
 
-local unitRealm = Units ()
+local unitRealm = UnitsRealm ()
 
-local miles = unitRealm:addLegalUnit "miles"
-local hours = unitRealm:addLegalUnit "hours"
+local unitsToAdd = {
+	"centimeters",
+	"hours",
+	"inches",
+	"meters",
+	"miles",
+	"minutes",
+	"seconds",
+}
+local units = {}
 
-print (unitRealm:value (88) * miles / hours)
+for _, unit in ipairs (unitsToAdd) do
+	units [unit] = unitRealm:addLegalUnit (unit)
+end
+
+print (unitRealm:value (88) * units.miles / units.hours)
