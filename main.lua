@@ -30,12 +30,12 @@ print ("Speed of sound", 343 * units.meters / units.seconds
 	/ feetPerMile)
 
 -- Output:
--- Speed of sound  767.26914817466 miles / hours
+-- Speed of sound  767.26914817466 miles / (hours)
 
 print ("Inches per cm", cmPerInch ^ -1)
 
 -- Output:
--- Inches per cm   0.39370078740157 inches / centimeters
+-- Inches per cm   0.39370078740157 inches / (centimeters)
 
 print ("Hypotenuse of right triangle with sides 3 cm and 4 cm",
 	((3 * units.centimeters) ^ 2 +
@@ -43,3 +43,15 @@ print ("Hypotenuse of right triangle with sides 3 cm and 4 cm",
 
 -- Output:
 -- Hypotenuse of right triangle with sides 3 cm and 4 cm   5.0 centimeters
+
+print ("Area of 8.5 by 11 inch letter paper",
+	8.5 * units.inches * 11 * units.inches)
+
+-- Output:
+-- Area of 8.5 by 11 inch letter paper     93.5 inches * inches
+
+print ("Speed of a paint roller",
+	8 * units.seconds / units.feet / units.feet)
+
+-- Output:
+-- Speed of a paint roller 8 seconds / (feet * feet)

@@ -156,8 +156,8 @@ function M.mt.__tostring (wrapped)
 	
 	if #negUnits >= 1 then
 		return tostring (wrapped.value) .. " " .. 
-		  table.concat (posUnits, " * ") .. " / " .. 
-		  table.concat (negUnits, " * ")
+		  table.concat (posUnits, " * ") .. " / (" .. 
+		  table.concat (negUnits, " * ") .. ")"
 	else
 		return tostring (wrapped.value) .. " " .. 
 		  table.concat (posUnits, " * ")
