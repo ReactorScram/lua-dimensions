@@ -67,4 +67,8 @@ converter:addConversion (12, units.inches, units.feet)
 converter:addConversion (5280, units.feet, units.miles)
 
 print ("Kilometers per mile", converter:solveWithoutSubdividing (
-	units.kilometers, units.miles))
+	units.miles, units.kilometers))
+print ("Inches per mile", converter:solveWithoutSubdividing (
+	units.miles, units.inches))
+print ("Inches per kilometer", converter:solveWithoutSubdividing (
+	units.kilometers, units.inches))
