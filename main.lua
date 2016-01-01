@@ -1,6 +1,4 @@
-local UnitsRealm = require "units"
-
-local unitRealm = UnitsRealm ()
+local UnitWrapper = require "units"
 
 local unitsToAdd = {
 	"centimeters",
@@ -15,10 +13,12 @@ local unitsToAdd = {
 local units = {}
 
 for _, unit in ipairs (unitsToAdd) do
-	units [unit] = unitRealm:addLegalUnit (unit)
+	units [unit] = UnitWrapper.newUnit (unit)
 end
 
 print (88 * units.miles / units.hours)
+-- Output:
+-- 88 miles / hours
 
 local cmPerM = 100 * units.centimeters / units.meters
 local secondsPerHour = 3600 * units.seconds / units.hours
@@ -27,9 +27,12 @@ local inchesPerFoot = 12 * units.inches / units.feet
 local feetPerMile = 5280 * units.feet / units.miles
 
 -- Calculate the speed of sound in air, in MPH
-print (343 * units.meters / units.seconds
+print ("Speed of sound", 343 * units.meters / units.seconds
 	* cmPerM
 	* secondsPerHour
 	/ cmPerInch
 	/ inchesPerFoot
 	/ feetPerMile)
+
+-- Output:
+-- Speed of sound  767.26914817466 miles / hours
