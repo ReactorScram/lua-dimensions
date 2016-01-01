@@ -1,6 +1,7 @@
 local M = {}
 
 M.mt = {}
+M.mt.__index = M.mt
 
 function M.unitEquality (unitsA, unitsB)
 	for unit, dimension in pairs (unitsA) do
@@ -128,7 +129,7 @@ function M.mt.__mod (a, b)
 	}, M.mt)
 end
 
-function M.mt.__tostring (wrapped)
+function M.mt.splitUnitsBySign (wrapped)
 	local allUnits = {}
 	for unit, dimension in pairs (wrapped.units) do
 		table.insert (allUnits, unit)
@@ -153,6 +154,12 @@ function M.mt.__tostring (wrapped)
 			end
 		end
 	end
+	
+	return posUnits, negUnits
+end
+
+function M.mt.__tostring (wrapped)
+	local posUnits, negUnits = wrapped:splitUnitsBySign ()
 	
 	if #negUnits >= 1 then
 		return tostring (wrapped.value) .. " " .. 

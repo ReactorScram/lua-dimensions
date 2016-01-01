@@ -1,10 +1,12 @@
 local UnitWrapper = require "units"
+local Conversion = require "conversion"
 
 local units = UnitWrapper.makeUnitsTable {
 	"centimeters",
 	"feet",
 	"hours",
 	"inches",
+	"kilometers",
 	"meters",
 	"miles",
 	"minutes",
@@ -55,3 +57,14 @@ print ("Speed of a paint roller",
 
 -- Output:
 -- Speed of a paint roller 8 seconds / (feet * feet)
+
+local converter = Conversion.new ()
+
+converter:addConversion (1000, units.meters, units.kilometers)
+converter:addConversion (100, units.centimeters, units.meters)
+converter:addConversion (2.54, units.centimeters, units.inches)
+converter:addConversion (12, units.inches, units.feet)
+converter:addConversion (5280, units.feet, units.miles)
+
+print ("Kilometers per mile", converter:solveWithoutSubdividing (
+	units.kilometers, units.miles))
