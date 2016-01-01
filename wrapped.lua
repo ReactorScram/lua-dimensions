@@ -52,6 +52,9 @@ function M.unitDivide (unitsA, unitsB)
 end
 
 function M.mt.__add (a, b)
+	a = M.newValue (a)
+	b = M.newValue (b)
+	
 	assert (M.unitEquality (a.units, b.units))
 	
 	return setmetatable ({
@@ -61,6 +64,9 @@ function M.mt.__add (a, b)
 end
 
 function M.mt.__sub (a, b)
+	a = M.newValue (a)
+	b = M.newValue (b)
+	
 	assert (M.unitEquality (a.units, b.units))
 	
 	return setmetatable ({
@@ -70,6 +76,9 @@ function M.mt.__sub (a, b)
 end
 
 function M.mt.__mul (a, b)
+	a = M.newValue (a)
+	b = M.newValue (b)
+	
 	return setmetatable ({
 		value = a.value * b.value,
 		units = M.unitMultiply (a.units, b.units),
@@ -77,6 +86,9 @@ function M.mt.__mul (a, b)
 end
 
 function M.mt.__div (a, b)
+	a = M.newValue (a)
+	b = M.newValue (b)
+	
 	return setmetatable ({
 		value = a.value / b.value,
 		units = M.unitDivide (a.units, b.units),
@@ -120,10 +132,14 @@ function M.mt.__tostring (wrapped)
 end
 
 function M.newValue (value)
-	return setmetatable ({
-		value = value,
-		units = {},
-	}, M.mt)
+	if type (value) == "number" then
+		return setmetatable ({
+			value = value,
+			units = {},
+		}, M.mt)
+	else 
+		return value
+	end
 end
 
 function M.newUnit (unit)
